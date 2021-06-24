@@ -47,7 +47,7 @@ f = 1
 
 @app.route('/')
 def hello_world():
-    return render_template('index.html')
+    return render_template('front.html')
 
 
 
@@ -75,10 +75,7 @@ def arrays():
     phases = phase.tolist()
     global f
     f=0
-
     return ""
-
-
 @app.route("/get_data")
 def get_data():
     h_ , phase = filter(zeros,poles)
@@ -88,8 +85,5 @@ def get_data():
         x = 1
         h_past = h_    
     return jsonify({'payload':json.dumps({'data':values,'p':phases,'x':x ,'f':f})})
- 
-
-
 if __name__ == '__main__':
     app.run()

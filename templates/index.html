@@ -5,6 +5,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script> 
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="../static/lib/p5.min.js"></script>
+        <script src="../static/lib/p5.dom.min.js"></script>
+        <script src="../static/lib/p5.sound-min.js"></script>
         <link rel="stylesheet" type="text/css" href="../static/style.css">
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,50 +16,49 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     </head>
 
+
     <body>
         <script src="../static/sketch.js"></script>
         <script src="../static/Zero.js"></script>
         <script src="../static/Pole.js"></script>
         <script src="../static/all_pass.js"></script>
 
-    <div id="checkboxes" style=" position:absolute; top:550px; left:0px; z-index:1 ">
-      <!-- <input type="checkbox" id="Filter 1"  value="Filter 1" >
-                <label for="Filter 1">Filter 1[0.5,0] </label><br>
-                <input type="checkbox" id="Filter 2"  value="Filter 2" >
-                <label for="Filter 2">Filter 2[-0.5,0] </label><br>
-                <input type="checkbox" id="Filter 3"  value="Filter 3" >
-                <label for="Filter 3">Filter 3[0,0.5] </label><br>
-                <input type="checkbox" id="Filter 4"  value="Filter 4" >
-                <label for="Filter 4">Custom</label><br> -->
-    </div>
-    
-    <div style="width:45%; height: auto; position:absolute; top:0px; left:700px; z-index:1 ; color:blueviolet ">
-      <canvas style="  margin: 15px; border-style: solid; " id="myChart"></canvas><br>
-    
-      <!-- <div style="width:45%; height: auto; margin: 15px; border-style: solid; position: absolute; right: 15px;"> -->
-      <canvas style="  margin: 15px; border-style: solid; " id="myChart2"></canvas><br>
-      <!-- </div> -->
-      <!-- <div style="width:45%; height: auto; margin: 15px; border-style: solid; position: absolute; right: 15px; "> -->
-      <canvas style="  margin: 15px; border-style: solid; " id="myChart3"></canvas><br>
-    </div>
-    
-    <div style=" position:absolute; top:400px; left:0px; z-index:1 ">
-      <form>
-        <input type="radio" id="bubble" name="points" value="bubble">
-        <label for="bubble">Zero</label><br>
-        <input type="radio" id="cross" name="points" value="cross">
-        <label for="cross">Pole</label><br>
-        <input type="radio" id="allPass" name="points" value="allPass">
-        <label for="cross">All Pass Filter</label><br>
-        <input type="checkbox" id="conj" name="conj" value="conj">
-        <label for="conj">Conjugate</label><br>
-      </form>
-    
-      <button id="DeleteZeros" onclick="removeZeros()">Delete Zeros</button>
-      <button id="DeletePoles" onclick="removePoles()">Delete Poles</button>
-      <button id="DeleteAll" onclick="removeAll()">Delete All</button>
-    
-    </div>
+      <!--  <script src="charts.js"></script> -->
+        <div style=" position:absolute; top:400px; left:0px; z-index:1 ">
+            <form>
+                <input type="radio" id="bubble" name="points" value="bubble">
+                <label for="bubble">Zero</label><br>
+                <input type="radio" id="cross" name="points" value="cross">
+                <label for="cross">Pole</label><br>
+                <input type="radio" id="allPass" name="points" value="allPass">
+                <label for="cross">All Pass Filter</label><br>
+                <input type="checkbox" id="conj" name="conj" value="conj">
+                <label for="conj">Conjugate</label><br>
+            </form>
+            <div>
+              <button id="DeleteZeros" onclick="removeZeros()">Delete Zeros</button>
+              <button id="DeletePoles" onclick="removePoles()">Delete Poles</button>
+              <button id="DeleteAll" onclick="removeAll()">Delete All</button>
+            </div>
+          </div>
+        <div id="checkboxes" style=" position:absolute; top:545px; left:0px; z-index:1 ">
+                <!-- <input type="checkbox" id="Filter 1" name="Filter 1" value="Filter 1">
+                <label for="Filter 1">Filter1</label><br>
+                <input type="checkbox" id="Filter 2" name="Filter 2" value="Filter 2">
+                <label for="Filter 2">Filter2</label><br>
+                <input type="checkbox" id="Filter 3" name="Filter 3" value="Filter 3">
+                <label for="Filter 3">Filter3</label><br> -->
+        </div>
+        
+        <div style="width:45%; height: auto; position:absolute; top:0px; left:700px; z-index:1 ; color:blueviolet ">
+            <!-- <canvas style="  margin: 15px; border-style: solid; " id="myChart"></canvas><br> -->
+      
+        <!-- <div style="width:45%; height: auto; margin: 15px; border-style: solid; position: absolute; right: 15px;"> -->
+            <canvas style="  margin: 15px; border-style: solid; "  id="myChart2"></canvas><br>
+        <!-- </div> -->
+        <!-- <div style="width:45%; height: auto; margin: 15px; border-style: solid; position: absolute; right: 15px; "> -->
+            <canvas style="  margin: 15px; border-style: solid; " id="myChart3"></canvas><br>
+        </div>
 
     </body>
     <script type="text/javascript">
@@ -71,12 +72,11 @@
 
     <!-- <div id = updated_data> -->
     <script type="text/javascript">
-    ResponseFilter();
+    // ResponseFilter();
     //MagnitudeResponse();
     //PhaseResponse();
 
     function ResponseFilter(){let myChart = document.getElementById('myChart').getContext('2d');
-
 
     // Global Options
     Chart.defaults.global.defaultFontFamily = 'Lato';
@@ -136,9 +136,9 @@
 
         
       if(x || f){
-      let myChart = document.getElementById('myChart2').getContext('2d')
+      let myChart2 = document.getElementById('myChart2').getContext('2d')
       console.warn("inn")
-      let massPopChart = new Chart(myChart, {
+      let massPopChart2 = new Chart(myChart2, {
       type: 'line',
       data: {
         labels:['0', 'π/4', 'π/2', '3π/4', 'π'],
@@ -148,7 +148,7 @@
         backgroundColor: ["#3e95cd", "#8e5ea2","#3cba9f","#e8c3b9","#c45850"],
         fill: false,
         borderColor:'#777',
-        hoverBorderWidth:3,
+        hoverBorderWidth:2,
         hoverBorderColor:'#000',
         data: _data
         }
@@ -163,9 +163,9 @@
       });
 
       
-      let myChart2 = document.getElementById('myChart3').getContext('2d')
+      let myChart3 = document.getElementById('myChart3').getContext('2d')
     
-      let massPopChart2 = new Chart(myChart2, {
+      let massPopChart3 = new Chart(myChart3, {
       type: 'line',
       data: {
         labels:['0', 'π/4', 'π/2', '3π/4', 'π'],

@@ -13,7 +13,6 @@ class Zero {
     show(c = '#ff0') {
         // change color when mouse is on the object:
         if (this.inRange() && this.d == 10) { c = '#00f'; }
-
         // points inside the square:
         if (this.dragging) {
             if (mouseX > width) {
@@ -55,10 +54,9 @@ class Zero {
         stroke(c);
         strokeWeight(2);
         noFill();
-        if (this.d == 10) { fill(c);}
-        
-        circle(this.x, this.y, this.d);
+        if (this.d == 10) { fill(c); }
 
+        circle(this.x, this.y, this.d);
     }
     inRange() {
         if (dist(mouseX, mouseY, this.x, this.y) <= this.d / 2) {

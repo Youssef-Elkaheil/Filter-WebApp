@@ -9,6 +9,7 @@ class Pole {
         this.X = Number(((this.x - 200) / 100).toFixed(2));
         this.Y = Number(((200 - this.y) / 100).toFixed(2));
     }
+    
     show(c = '#ff0') {
         // change color when mouse is on the object:
         if (this.inRange()) { c = '#00f'; }

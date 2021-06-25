@@ -29,12 +29,10 @@ def all_pass(z, p, a):
     h= np.abs(h_total)
     return h,phase
 
-
 app = Flask(__name__)
 z = np.array([1j])
 p = np.array([])
 all_pass=np.array([])
-
 
 # global zeros
 zeros=np.array([])
@@ -47,9 +45,7 @@ f = 1
 
 @app.route('/')
 def hello_world():
-    return render_template('front.html')
-
-
+    return render_template('index.html')
 
 @app.route("/arrays",methods=['POST','GET'])
 def arrays():
@@ -60,11 +56,10 @@ def arrays():
     all_pass=np.array([])
     req = request.get_json()
     for i in range(len(req["z"])):
-        z = complex(round((req["z"][i]['x']-300)/150,2),-1*round((req["z"][i]['y']-300)/150,2))
+        z = complex(req["z"][i]['X'], req["z"][i]['Y'])
         zeros = np.append(zeros ,z)
-
     for i in range(len(req["p"])):
-        p = complex(round((req["p"][i]['x']-300)/150,2),-1*round((req["p"][i]['y']-300)/150,2))
+        p = complex(req["p"][i]['X'], req["p"][i]['Y'])
         poles = np.append(poles ,p)
     global h
     h , phase = filter(zeros,poles)
@@ -76,6 +71,7 @@ def arrays():
     global f
     f=0
     return ""
+
 @app.route("/get_data")
 def get_data():
     h_ , phase = filter(zeros,poles)
@@ -85,5 +81,6 @@ def get_data():
         x = 1
         h_past = h_    
     return jsonify({'payload':json.dumps({'data':values,'p':phases,'x':x ,'f':f})})
+
 if __name__ == '__main__':
     app.run()

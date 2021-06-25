@@ -9,7 +9,7 @@ class AllPass {
         this.custom = false;
     }
     show(c = 'green') {
-        
+
         // change color when mouse is on the object:
         if (this.inRange()) { c = '#00f'; }
         // points inside the square:
@@ -33,7 +33,7 @@ class AllPass {
         }
         this.X = Number(((this.x - 200) / 100).toFixed(2));
         this.Y = Number(((200 - this.y) / 100).toFixed(2));
-        
+
         //        // points inside the main circle only:-
         //        if(this.dragging && dist(mouseX,mouseY,width / 2, height / 2)<=200){
         //              this.x = mouseX;
@@ -49,7 +49,7 @@ class AllPass {
         fill(c);
         strokeWeight(2);
         if (this.selected) {
-            square(this.x-5,this.y-5,10);
+            square(this.x - 5, this.y - 5, 10);
         }
     }
 
